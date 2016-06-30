@@ -3,6 +3,7 @@ package tlk.jorva.jamm.utils;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Blocks;
@@ -18,7 +19,8 @@ public class WorldUtils {
 	}
 	
     public static <T extends Entity> List<T> getEntitiesInBox(World world, Class <? extends T > classEntity, double aX, double aY, double aZ, double bX, double bY, double bZ){
-        return world.getEntitiesWithinAABB(classEntity, new AxisAlignedBB(aX, aY, aZ, bX, bY, bZ));
+        Debug.log(aX, aY, aZ, bX, bY, bZ);
+    	return world.getEntitiesWithinAABB(classEntity, new AxisAlignedBB(aX, aY, aZ, bX, bY, bZ));
     }
 	
     public static boolean isRitualMultiblockComplete(EnumRitualType ritualType, World world, int x, int y, int z){
@@ -36,7 +38,6 @@ public class WorldUtils {
     }
     
     public static EnumRitualType getMultiblockRitual(World world, int x, int y, int z){
-    	
     	for(EnumRitualType ritualType : EnumRitualType.getTypes()){
     		if(isRitualMultiblockComplete(ritualType, world, x, y, z))
     			return ritualType;
@@ -46,6 +47,7 @@ public class WorldUtils {
     }
     
     public static Block getBlock(World world, int x, int y, int z){
+    	if(world.isAirBlock(new BlockPos(x,y,z))) return null;
     	return world.getBlockState(new BlockPos(x,y,z)).getBlock();
     }
 	

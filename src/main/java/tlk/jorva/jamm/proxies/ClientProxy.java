@@ -1,4 +1,4 @@
-package tlk.jorva.jamm.proxy;
+package tlk.jorva.jamm.proxies;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

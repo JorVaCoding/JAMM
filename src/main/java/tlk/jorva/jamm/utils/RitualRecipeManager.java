@@ -18,7 +18,9 @@ public class RitualRecipeManager {
 
 	public static RitualRecipe getRecipeFromInputs(EnumRitualType ritualType, ItemStack... inputs) {
 		for (RitualRecipe recipe : recipes) {
+			Debug.log(ritualType, recipe.getRitualType());
 			if (recipe.getRitualType() == ritualType && compareInputSets(Arrays.asList(inputs), recipe.getInputs())) {
+				Debug.log(ritualType, recipe.getRitualType());
 				return recipe;
 			}
 		}

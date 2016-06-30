@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import tlk.jorva.jamm.proxy.CommonProxy;
+import tlk.jorva.jamm.proxies.CommonProxy;
 
 @Mod(modid = "jamm", version = "$VERSION", name = "J.A.M.M.")
 public class JAMM {
@@ -16,7 +16,7 @@ public class JAMM {
 	@Instance
 	public static JAMM INSTANCE;
 	
-	@SidedProxy(serverSide="tlk.jorva.jamm.proxy.ServerProxy", clientSide="tlk.jorva.jamm.proxy.ClientProxy")
+	@SidedProxy(serverSide="tlk.jorva.jamm.proxies.CommonProxy", clientSide="tlk.jorva.jamm.proxies.ClientProxy")
     public static CommonProxy proxy;
 
 	@EventHandler
