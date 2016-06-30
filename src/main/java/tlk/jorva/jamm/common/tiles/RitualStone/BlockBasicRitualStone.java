@@ -25,11 +25,11 @@ public class BlockBasicRitualStone extends BlockContainer{
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		
+
 		TileRitualStone te = (TileRitualStone)worldIn.getTileEntity(pos);
 		te.onActivated(playerIn);
-		
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
+	
 	
 }

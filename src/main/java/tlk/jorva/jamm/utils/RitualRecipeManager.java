@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class RitualRecipeManager {
@@ -18,10 +19,10 @@ public class RitualRecipeManager {
 
 	public static RitualRecipe getRecipeFromInputs(EnumRitualType ritualType, ItemStack... inputs) {
 		for (RitualRecipe recipe : recipes) {
-			Debug.log(ritualType, recipe.getRitualType());
-			if (recipe.getRitualType() == ritualType && compareInputSets(Arrays.asList(inputs), recipe.getInputs())) {
-				Debug.log(ritualType, recipe.getRitualType());
-				return recipe;
+			if (recipe.getRitualType() == ritualType) {
+				if (compareInputSets(Arrays.asList(inputs), recipe.getInputs())) {
+					return recipe;
+				}
 			}
 		}
 
@@ -47,16 +48,28 @@ public class RitualRecipeManager {
 
 		return true;
 	}
-	
-	public static HashSet<RitualRecipe> getRecipes(){
+
+	public static HashSet<RitualRecipe> getRecipes() {
 		return recipes;
 	}
-	
-	public static void addRecipes(){
-		registerRecipe(new RitualRecipe(new ItemStack(Blocks.DIAMOND_BLOCK), EnumRitualType.BASIC, new ItemStack(Blocks.DIRT)));
-		registerRecipe(new RitualRecipe(new ItemStack(Blocks.DIRT), EnumRitualType.BASIC, new ItemStack(Blocks.DIAMOND_BLOCK)));
+
+	public static void addRecipes() {
+		registerRecipe(new RitualRecipe(new ItemStack(Blocks.DIAMOND_BLOCK), EnumRitualType.BASIC,
+				new ItemStack(Blocks.DIRT)));
+		registerRecipe(new RitualRecipe(new ItemStack(Blocks.DIRT), EnumRitualType.BASIC,
+				new ItemStack(Blocks.DIAMOND_BLOCK)));
+
+		registerRecipe(new RitualRecipe(new ItemStack(Items.IRON_INGOT), EnumRitualType.FUSION,
+				new ItemStack(Blocks.SOUL_SAND, 8),
+				new ItemStack(Items.ROTTEN_FLESH),
+				new ItemStack(Items.GHAST_TEAR),
+				new ItemStack(Items.BLAZE_ROD),
+				new ItemStack(Items.SPIDER_EYE),
+				new ItemStack(Items.ENDER_PEARL),
+				new ItemStack(Items.BONE),
+				new ItemStack(Items.GUNPOWDER),
+				new ItemStack(Items.SLIME_BALL),
+				new ItemStack(Items.GOLD_INGOT)));
 	}
-	
+
 }
-
-
