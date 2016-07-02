@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tlk.jorva.jamm.common.tiles.RitualStone.BlockAdvancedRitualStone;
 import tlk.jorva.jamm.common.tiles.RitualStone.BlockBasicRitualStone;
 
 public class WorldUtils {
@@ -52,88 +54,74 @@ public class WorldUtils {
 			if (!(getBlock(world, x, y, z - 1) == Blocks.IRON_BLOCK))
 				return false;
 			return true;
-		}
-		if (ritualType == EnumRitualType.FUSION) {
-			// if(!(getBlock(world, x, y, z) instanceof BlockBasicRitualStone))
-			// return false;
-			// if(!(getBlock(world, x, y-1, z) == Blocks.GOLD_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x, y-1, z+1) == Blocks.REDSTONE_BLOCK))
-			// return false;
-			// if(!(getBlock(world, x+1, y-1, z) == Blocks.REDSTONE_BLOCK))
-			// return false;
-			// if(!(getBlock(world, x-1, y-1, z) == Blocks.REDSTONE_BLOCK))
-			// return false;
-			// if(!(getBlock(world, x, y-1, z-1) == Blocks.REDSTONE_BLOCK))
-			// return false;
-			//
-			// if(!(getBlock(world, x+1, y-1, z+1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x+1, y-1, z-1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x-1, y-1, z+1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x-1, y-1, z-1) == Blocks.IRON_BLOCK)) return
-			// false;
-			//
-			// if(!(getBlock(world, x+1, y, z+1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x+1, y, z-1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x-1, y, z+1) == Blocks.IRON_BLOCK)) return
-			// false;
-			// if(!(getBlock(world, x-1, y, z-1) == Blocks.IRON_BLOCK)) return
-			// false;
-			//
-			// if(!(getBlock(world, x+1, y+1, z+1) == Blocks.GLOWSTONE)) return
-			// false;
-			// if(!(getBlock(world, x+1, y+1, z-1) == Blocks.GLOWSTONE)) return
-			// false;
-			// if(!(getBlock(world, x-1, y+1, z+1) == Blocks.GLOWSTONE)) return
-			// false;
-			// if(!(getBlock(world, x-1, y+1, z-1) == Blocks.GLOWSTONE)) return
-			// false;
+		} else if (ritualType == EnumRitualType.FUSION) {
+			if (!(getBlock(world, x, y, z) instanceof BlockBasicRitualStone))
+				return false;
+			if (!(getBlock(world, x, y - 1, z) == Blocks.GOLD_BLOCK))
+				return false;
+			if (!(getBlock(world, x, y - 1, z + 1) == Blocks.REDSTONE_BLOCK))
+				return false;
+			if (!(getBlock(world, x + 1, y - 1, z) == Blocks.REDSTONE_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z) == Blocks.REDSTONE_BLOCK))
+				return false;
+			if (!(getBlock(world, x, y - 1, z - 1) == Blocks.REDSTONE_BLOCK))
+				return false;
 
-			// if(!(setBlock(world, x, y, z) instanceof BlockBasicRitualStone))
-			// return false;
-			// if(!(setBlock(world, x, y-1, z, Blocks.GOLD_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x, y-1, z+1, Blocks.REDSTONE_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x+1, y-1, z, Blocks.REDSTONE_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x-1, y-1, z, Blocks.REDSTONE_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x, y-1, z-1, Blocks.REDSTONE_BLOCK))) return
-			// false;
-			//
-			// if(!(setBlock(world, x+1, y-1, z+1, Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x+1, y-1, z-1, Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x-1, y-1, z+1, Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x-1, y-1, z-1, Blocks.IRON_BLOCK))) return
-			// false;
-			//
-			// if(!(setBlock(world, x+1, y, z+1,Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x+1, y, z-1,Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x-1, y, z+1,Blocks.IRON_BLOCK))) return
-			// false;
-			// if(!(setBlock(world, x-1, y, z-1,Blocks.IRON_BLOCK))) return
-			// false;
-			//
-			// if(!(setBlock(world, x+1, y+1, z+1, Blocks.GLOWSTONE))) return
-			// false;
-			// if(!(setBlock(world, x+1, y+1, z-1, Blocks.GLOWSTONE))) return
-			// false;
-			// if(!(setBlock(world, x-1, y+1, z+1, Blocks.GLOWSTONE))) return
-			// false;
-			// if(!(setBlock(world, x-1, y+1, z-1, Blocks.GLOWSTONE))) return
-			// false;
+			if (!(getBlock(world, x + 1, y - 1, z + 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x + 1, y - 1, z - 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z + 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z - 1) == Blocks.IRON_BLOCK))
+				return false;
 
+			if (!(getBlock(world, x + 1, y, z + 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x + 1, y, z - 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y, z + 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y, z - 1) == Blocks.IRON_BLOCK))
+				return false;
+
+			if (!(getBlock(world, x + 1, y + 1, z + 1) == Blocks.GLOWSTONE))
+				return false;
+			if (!(getBlock(world, x + 1, y + 1, z - 1) == Blocks.GLOWSTONE))
+				return false;
+			if (!(getBlock(world, x - 1, y + 1, z + 1) == Blocks.GLOWSTONE))
+				return false;
+			if (!(getBlock(world, x - 1, y + 1, z - 1) == Blocks.GLOWSTONE))
+				return false;
+
+			return true;
+		} else if (ritualType == EnumRitualType.WEAPONRY){
+			if(!(getBlock(world, x,y,z) instanceof BlockAdvancedRitualStone))
+				return false;
+			if(!(getBlock(world,x,y-1,z) == Blocks.LAVA))
+				return false;
+			if(!(getBlock(world,x,y-2,z) == Blocks.EMERALD_BLOCK))
+				return false;
+			
+			if (!(getBlock(world, x, y - 1, z + 1) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x + 1, y - 1, z) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z) == Blocks.IRON_BLOCK))
+				return false;
+			if (!(getBlock(world, x, y - 1, z - 1) == Blocks.IRON_BLOCK))
+				return false;
+			
+			if (!(getBlock(world, x + 1, y - 1, z + 1) == Blocks.ANVIL))
+				return false;
+			if (!(getBlock(world, x + 1, y - 1, z - 1) == Blocks.ANVIL))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z + 1) == Blocks.ANVIL))
+				return false;
+			if (!(getBlock(world, x - 1, y - 1, z - 1) == Blocks.ANVIL))
+				return false;
+			
 			return true;
 		}
 
@@ -145,18 +133,15 @@ public class WorldUtils {
 			return EnumRitualType.BASIC;
 		if (isRitualMultiblockComplete(EnumRitualType.FUSION, world, x, y, z))
 			return EnumRitualType.FUSION;
+		if (isRitualMultiblockComplete(EnumRitualType.WEAPONRY, world, x, y, z))
+			return EnumRitualType.WEAPONRY;
 		return null;
 	}
-
 
 	public static Block getBlock(World world, int x, int y, int z) {
 		if (world.isAirBlock(new BlockPos(x, y, z)))
 			return null;
 		return world.getBlockState(new BlockPos(x, y, z)).getBlock();
-	}
-
-	public static boolean setBlock(World world, int x, int y, int z, Block block) {
-		return world.setBlockState(new BlockPos(x, y, z), block.getDefaultState());
 	}
 
 }
