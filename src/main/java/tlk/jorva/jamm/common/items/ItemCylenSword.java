@@ -18,12 +18,13 @@ import tlk.jorva.jamm.utils.ItemNBTUtils;
 import tlk.jorva.jamm.utils.WorldUtils;
 
 public class ItemCylenSword extends ItemSword {
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		if(ItemNBTUtils.getTagCompound(stack).getBoolean("isImbued")){
+		if (ItemNBTUtils.getTagCompound(stack).getBoolean("isImbued")) {
 			tooltip.add(ChatFormatting.LIGHT_PURPLE + "Imbued!");
-			tooltip.add(ChatFormatting.RED + "WARNING: " + ChatFormatting.YELLOW + "Not safe for creepers (or warlordjones).");
+			tooltip.add(ChatFormatting.RED + "WARNING: " + ChatFormatting.YELLOW
+					+ "Not safe for creepers (or warlordjones).");
 		}
 		super.addInformation(stack, playerIn, tooltip, advanced);
 	}
@@ -50,15 +51,17 @@ public class ItemCylenSword extends ItemSword {
 				double x = target.posX;
 				double y = target.posY;
 				double z = target.posZ;
-				
+
 				WorldUtils.createLightning(world, x, y, z, false);
-				target.addPotionEffect(new PotionEffect(Potion.getPotionById(20), 5*20, 2));
-				target.addPotionEffect(new PotionEffect(Potion.getPotionById(24), 5*20, 2));
-				target.addPotionEffect(new PotionEffect(Potion.getPotionById(11), 5*20, 2));
-				
-				if(target.getName().equalsIgnoreCase("warlordjones")){
-					target.attackEntityFrom(new DamageSource("cylent"), 1000);
-					return false;
+				target.addPotionEffect(new PotionEffect(Potion.getPotionById(20), 5 * 20, 2));
+				target.addPotionEffect(new PotionEffect(Potion.getPotionById(24), 5 * 20, 2));
+				target.addPotionEffect(new PotionEffect(Potion.getPotionById(11), 5 * 20, 2));
+
+				if (target.getName().equalsIgnoreCase("warlordjones") && target instanceof EntityPlayer) {
+					if (player.isSneaking()) {
+						target.attackEntityFrom(new DamageSource("cylen").setDamageAllowedInCreativeMode(), 1000);
+						return false;
+					}
 				}
 
 			}
