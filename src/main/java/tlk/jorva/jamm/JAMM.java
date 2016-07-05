@@ -1,6 +1,7 @@
 package tlk.jorva.jamm;
 
 import net.minecraft.init.Blocks;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -8,7 +9,9 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import tlk.jorva.jamm.proxies.CommonProxy;
+import net.minecraftforge.fml.relauncher.Side;
+import tlk.jorva.jamm.proxies.ClientRegistry;
+import tlk.jorva.jamm.proxies.CommonRegistry;
 
 @Mod(modid = "jamm", version = "$VERSION", name = "J.A.M.M.")
 public class JAMM {
@@ -16,23 +19,25 @@ public class JAMM {
 	@Instance
 	public static JAMM INSTANCE;
 	
-	@SidedProxy(serverSide="tlk.jorva.jamm.proxies.CommonProxy", clientSide="tlk.jorva.jamm.proxies.ClientProxy")
-    public static CommonProxy proxy;
+    public static CommonRegistry registry;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		proxy.preInit(event);
+		
+		registry = (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ? new ClientRegistry() : new CommonRegistry();
+		
+		registry.preInit(event);
 	}
 	
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		proxy.init(event);
+		registry.init(event);
 	}
 	
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		proxy.postInit(event);
+		registry.postInit(event);
 	}
 }

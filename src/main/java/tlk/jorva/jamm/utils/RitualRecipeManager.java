@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tlk.jorva.jamm.proxies.CommonProxy;
+import tlk.jorva.jamm.proxies.CommonRegistry;
 
 public class RitualRecipeManager {
 	private static final HashSet<RitualRecipe> recipes = new HashSet<RitualRecipe>();
@@ -60,7 +60,7 @@ public class RitualRecipeManager {
 		registerRecipe(new RitualRecipe(new ItemStack(Blocks.DIRT), EnumRitualType.BASIC,
 				new ItemStack(Blocks.DIAMOND_BLOCK)));
 
-		registerRecipe(new RitualRecipe(new ItemStack(CommonProxy.itemSouliniumIngot, 8), EnumRitualType.FUSION,
+		registerRecipe(new RitualRecipe(new ItemStack(CommonRegistry.itemSouliniumIngot, 8), EnumRitualType.FUSION,
 				new ItemStack(Blocks.SOUL_SAND, 8),
 				new ItemStack(Items.ROTTEN_FLESH),
 				new ItemStack(Items.GHAST_TEAR),
@@ -72,13 +72,13 @@ public class RitualRecipeManager {
 				new ItemStack(Items.SLIME_BALL),
 				new ItemStack(Items.GOLD_INGOT, 8)));
 		
-		registerRecipe(new RitualRecipe(new ItemStack(CommonProxy.itemCylenSword), EnumRitualType.WEAPONRY, new ItemStack(Blocks.DIAMOND_BLOCK), new ItemStack(CommonProxy.itemSouliniumIngot, 2), new ItemStack(Items.BLAZE_ROD)));
+		registerRecipe(new RitualRecipe(new ItemStack(CommonRegistry.itemCylenSword), EnumRitualType.WEAPONRY, new ItemStack(Blocks.DIAMOND_BLOCK), new ItemStack(CommonRegistry.itemSouliniumIngot, 2), new ItemStack(Items.BLAZE_ROD)));
 		NBTTagCompound imbuedCompound = new NBTTagCompound();
 		imbuedCompound.setBoolean("isImbued", true);
-		ItemStack imbuedSword = new ItemStack(CommonProxy.itemCylenSword);
+		ItemStack imbuedSword = new ItemStack(CommonRegistry.itemCylenSword);
 		imbuedSword.setTagCompound(imbuedCompound);
 		
-		registerRecipe(new RitualRecipe(imbuedSword, EnumRitualType.WEAPONRY, new ItemStack(CommonProxy.itemCylenSword), new ItemStack(Items.GOLDEN_APPLE), new ItemStack(Items.BREWING_STAND), new ItemStack(Blocks.QUARTZ_BLOCK,16)));
+		registerRecipe(new RitualRecipe(imbuedSword, EnumRitualType.WEAPONRY, new ItemStack(CommonRegistry.itemCylenSword), new ItemStack(Items.GOLDEN_APPLE), new ItemStack(Items.BREWING_STAND), new ItemStack(Blocks.QUARTZ_BLOCK,16)));
 	}
 
 }

@@ -5,15 +5,21 @@ import java.util.List;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import tlk.jorva.jamm.utils.EntityUtils;
 import tlk.jorva.jamm.utils.ItemNBTUtils;
 import tlk.jorva.jamm.utils.WorldUtils;
 
@@ -69,4 +75,42 @@ public class ItemCylenSword extends ItemSword {
 
 		return super.onLeftClickEntity(stack, player, entity);
 	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		NBTTagCompound compound = ItemNBTUtils.getTagCompound(stack);
+		int cooldown = 0;
+		if (compound.hasKey("cooldown"))
+			cooldown = compound.getInteger("cooldown");
+		if (cooldown > 0)
+			cooldown--;
+		compound.setInteger("cooldown", cooldown);
+		stack.setTagCompound(compound);
+		super.onUpdate(stack, world, entity, slot, selected);
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if (!world.isRemote) {
+			NBTTagCompound compound = ItemNBTUtils.getTagCompound(stack);
+			int cooldown = 0;
+			if (compound.hasKey("cooldown"))
+				cooldown = compound.getInteger("cooldown");
+			if (cooldown == 0) {
+				EntityUtils.WitherSkullUtils.SummonSkull(player, true);
+				cooldown = (int)(20 * 2.5);
+//				cooldown = 1;
+			}
+			compound.setInteger("cooldown", cooldown);
+			stack.setTagCompound(compound);
+		}
+		return super.onItemRightClick(stack, world, player, hand);
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		return (ItemNBTUtils.getTagCompound(stack).getBoolean("isImbued"));
+	}
+	
+
 }
